@@ -2,9 +2,6 @@ package problem8;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 /*
@@ -16,15 +13,14 @@ import org.junit.jupiter.api.Test;
 // @lc code=start
 class Solution {
     public int myAtoi(String s) {
-        List<Character> chList = new ArrayList<>();
+        int ans = 0;
+        int maxDivideTen = Integer.MAX_VALUE / 10;
         boolean positive = true;
         boolean num = false;
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (num) {
-                if (Character.isDigit(ch)) {
-                    chList.add(ch);
-                } else {
+                if (!Character.isDigit(ch)) {
                     break;
                 }
             } else {
@@ -33,17 +29,15 @@ class Solution {
                         positive = false;
                     }
                     num = true;
+                    continue;
                 } else if (Character.isDigit(ch)) {
-                    chList.add(ch);
                     num = true;
                 } else if (!Character.isWhitespace(ch)) {
                     return 0;
+                } else {
+                    continue;
                 }
             }
-        }
-        int ans = 0;
-        int maxDivideTen = Integer.MAX_VALUE / 10;
-        for (char ch : chList) {
             int n = Character.getNumericValue(ch);
             if (!positive && ans == maxDivideTen && n == 8) {
                 return Integer.MIN_VALUE;
