@@ -15,17 +15,14 @@ public class ListNode {
         this.next = next;
     }
 
-    public ListNode(int[] nums) {
+    public static ListNode createFrom(int[] nums) {
         ListNode head = new ListNode();
         ListNode curr = head;
         for (int num : nums) {
             curr.next = new ListNode(num);
             curr = curr.next;
         }
-        if (head.next != null) {
-            this.val = head.next.val;
-            this.next = head.next.next;
-        }
+        return head.next;
     }
 
     public static void print(ListNode head) {

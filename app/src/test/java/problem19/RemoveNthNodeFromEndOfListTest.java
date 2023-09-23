@@ -43,8 +43,8 @@ class RemoveNthNodeFromEndOfListTest {
 
     @Test
     void case1() {
-        ListNode.print(solution.removeNthFromEnd(new ListNode(new int[]{1,2,3,4,5}), 2));;
-        ListNode.print(solution.removeNthFromEnd(new ListNode(new int[]{1}), 1));;
-        ListNode.print(solution.removeNthFromEnd(new ListNode(new int[]{1,2}), 1));;
+        ListNode.print(solution.removeNthFromEnd(ListNode.createFrom(new int[]{1,2,3,4,5}), 2));;
+        ListNode.print(solution.removeNthFromEnd(ListNode.createFrom(new int[]{1}), 1));;
+        ListNode.print(solution.removeNthFromEnd(ListNode.createFrom(new int[]{1,2}), 1));;
     }
 }

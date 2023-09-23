@@ -61,6 +61,6 @@ class Solution {
 class AddTwoNumbersTest {
     @Test
     void case1() {
-        ListNode.print(new Solution().addTwoNumbers(new ListNode(new int[]{2,4,3}), new ListNode(new int[]{5,6,4})));
+        ListNode.print(new Solution().addTwoNumbers(ListNode.createFrom(new int[]{2,4,3}), ListNode.createFrom(new int[]{5,6,4})));
     }
 }
