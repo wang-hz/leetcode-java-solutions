@@ -28,9 +28,9 @@ public class ListNode {
         }
     }
 
-    public void print() {
+    public static void print(ListNode head) {
         System.out.print('[');
-        ListNode curr = this;
+        ListNode curr = head;
         while (curr != null) {
             System.out.print(curr.val);
             curr = curr.next;
