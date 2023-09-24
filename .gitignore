@@ -47,3 +47,6 @@ replay_pid*
 
 # Visual Studio Code
 .vscode
+
+# Intellij IDEA
+.idea
