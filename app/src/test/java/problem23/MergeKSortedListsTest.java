@@ -6,7 +6,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import infra.ListNode;
-import javafx.util.Pair;
 
 /*
  * @lc app=leetcode id=23 lang=java
