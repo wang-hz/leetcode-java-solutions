@@ -1,13 +1,12 @@
 package problem23;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import infra.ListNode;
+import javafx.util.Pair;
 
 /*
  * @lc app=leetcode id=23 lang=java
@@ -27,18 +26,18 @@ import infra.ListNode;
  * }
  */
 class Solution {
-    void swap(List<Integer> list, int i, int j) {
-        int tmp = list.get(i);
+    <T> void swap(List<T> list, int i, int j) {
+        T tmp = list.get(i);
         list.set(i, list.get(j));
         list.set(j, tmp);
     }
 
-    void pushHeap(List<Integer> heap, int x) {
+    void pushHeap(List<ListNode> heap, ListNode list) {
         int i = heap.size();
-        heap.add(x);
+        heap.add(list);
         while (i > 0) {
             int j = (i - 1) / 2;
-            if (heap.get(i) < heap.get(j)) {
+            if (heap.get(i).val < heap.get(j).val) {
                 swap(heap, i, j);
                 i = j;
             } else {
@@ -47,34 +46,36 @@ class Solution {
         }
     }
 
-    int popHeap(List<Integer> heap) {
-        int x = heap.get(0);
+    int popHeap(List<ListNode> heap) {
+        ListNode top = heap.get(0);
         int n = heap.size() - 1;
         heap.set(0, heap.get(n));
-        int p = 0;
-        while (p <= n) {
-            int l = 2 * p + 1;
-            int r = l + 1;
-            if (r <= n && heap.get(r) < heap.get(p) && heap.get(r) < heap.get(l)) {
-                swap(heap, p, r);
-                p = r;
-            } else if (l <= n && heap.get(l) < heap.get(p)) {
-                swap(heap, p, l);
-                p = l;
+        heap.remove(n);
+        int i = 0;
+        while (i < n) {
+            int j = 2 * i + 1;
+            int k = j + 1;
+            if (k < n && heap.get(k).val < heap.get(j).val && heap.get(k).val < heap.get(i).val) {
+                swap(heap, i, k);
+                i = k;
+            } else if (j < n && heap.get(j).val < heap.get(i).val) {
+                swap(heap, i, j);
+                i = j;
             } else {
                 break;
             }
         }
-        heap.remove(n);
-        return x;
+        if (top.next != null) {
+            pushHeap(heap, top.next);
+        }
+        return top.val;
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
-        List<Integer> heap = new ArrayList<>();
+        List<ListNode> heap = new ArrayList<>();
         for (ListNode list : lists) {
-            while (list != null) {
-                pushHeap(heap, list.val);
-                list = list.next;
+            if (list != null) {
+                pushHeap(heap, list);
             }
         }
         ListNode head = new ListNode();
@@ -93,27 +94,6 @@ class MergeKSortedListsTest {
 
     @Test
     void case1() {
-        List<Integer> heap = new ArrayList<>();
-        solution.pushHeap(heap, 1);
-        solution.pushHeap(heap, 4);
-        solution.pushHeap(heap, 5);
-        solution.pushHeap(heap, 1);
-        solution.pushHeap(heap, 3);
-        solution.pushHeap(heap, 4);
-        solution.pushHeap(heap, 2);
-        solution.pushHeap(heap, 6);
-        assertEquals(1, solution.popHeap(heap));
-        assertEquals(1, solution.popHeap(heap));
-        assertEquals(2, solution.popHeap(heap));
-        assertEquals(3, solution.popHeap(heap));
-        assertEquals(4, solution.popHeap(heap));
-        assertEquals(4, solution.popHeap(heap));
-        assertEquals(5, solution.popHeap(heap));
-        assertEquals(6, solution.popHeap(heap));
-    }
-
-    @Test
-    void case2() {
         ListNode.print(solution.mergeKLists(new ListNode[]{}));
         ListNode.print(solution.mergeKLists(new ListNode[]{null}));
         ListNode.print(solution.mergeKLists(new ListNode[]{
